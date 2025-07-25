@@ -30,6 +30,7 @@ out/
 build/
 **/build/
 !gradle/wrapper/gradle-wrapper.jar
+!backend/gradle/wrapper/gradle-wrapper.jar
 
 # ========================================
 # Maven (혹시 혼용 중이라면)
