@@ -35,4 +35,7 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: haecheol/tickerboard-backend:latest
+          no-cache: true
+          tags: |
+            haecheol/tickerboard-backend:latest
+            haecheol/tickerboard-backend:${{ github.sha }}
