@@ -1,0 +1,15 @@
+name: Create branch on issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create branch from issue
+        uses: peter-evans/create-issue-branch@v4
+        with:
+          branch-name: issue-${{ github.event.issue.number }}
