@@ -1,0 +1,41 @@
+services:
+  spring:
+    build:
+      context: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+    depends_on:
+      - mysql
+    networks:
+      - ticker-network
+
+  vue:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"  # 기본 Vite 포트
+    networks:
+      - ticker-network
+
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    ports:
+      - "3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - ticker-network
+
+volumes:
+  mysql-data:
+
+networks:
+  ticker-network:

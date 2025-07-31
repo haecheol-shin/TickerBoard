@@ -76,3 +76,4 @@ Desktop.ini
 # !.gitkeep  # 빈 폴더 유지용
 
 *.pem
+.env
