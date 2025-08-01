@@ -25,13 +25,13 @@ public class StockPrice {
     @Column(nullable = false)
     private LocalDate date;
 
-    private Long open;
-    private Long high;
-    private Long low;
-    private Long close;
+    private int open;
+    private int high;
+    private int low;
+    private int close;
     private Long volume;
 
-    @Column(name = "change_rate", precision = 6, scale = 4)
+    @Column(precision = 10, scale = 4)
     private BigDecimal changeRate;
 
 }
