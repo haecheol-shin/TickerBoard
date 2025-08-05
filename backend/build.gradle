@@ -23,6 +23,10 @@ repositories {
 	mavenCentral()
 }
 
+test {
+	systemProperty 'spring.profiles.active', 'test'
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
@@ -34,6 +38,7 @@ dependencies {
 	// DB
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'mysql:mysql-connector-java:8.0.33'
+	runtimeOnly 'com.h2database:h2'
 
 	// Apachi POI
 	implementation 'org.apache.poi:poi:4.1.2'
