@@ -9,7 +9,12 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum FailureCode implements BaseCode {
 
-    _FAIL(HttpStatus.BAD_REQUEST, "STOCK4001", "전체 종목 리스트 조회 실패"),
+    // 종목 관련 코드
+    STOCK_LIST_NOT_FOUND(HttpStatus.BAD_REQUEST, "STOCK4001", "전체 종목 리스트 조회 실패"),
+    STOCK_NOT_FOUND(HttpStatus.BAD_REQUEST, "STOCK4002", "티커 조회 실패"),
+
+    // 가격 관련 코드
+    PRICE_NOT_FOUND(HttpStatus.BAD_REQUEST, "PRICE4001", "가격 조회 실패"),
 
     ;
 

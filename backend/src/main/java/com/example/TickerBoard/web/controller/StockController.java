@@ -6,7 +6,6 @@ import com.example.TickerBoard.web.converter.StockConverter;
 import com.example.TickerBoard.web.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -14,17 +13,16 @@ import java.util.Comparator;
 import java.util.List;
 
 import static com.example.TickerBoard.web.dto.StockDTO.*;
-import static com.example.TickerBoard.web.response.code.FailureCode._FAIL;
-import static com.example.TickerBoard.web.response.code.SuccessCode._OK;
+import static com.example.TickerBoard.web.response.code.FailureCode.STOCK_LIST_NOT_FOUND;
+import static com.example.TickerBoard.web.response.code.SuccessCode.STOCK_FOUND;
 
 @RestController
-@RequestMapping("/stocks")
 @RequiredArgsConstructor
 public class StockController {
 
     private final StockService stockService;
 
-    @GetMapping
+    @GetMapping("/stocks")
     public ApiResponse<List<StocksResponseDTO>> getAllStocks() {
         List<Stock> stockList = stockService.getStockList();
 
@@ -36,9 +34,9 @@ public class StockController {
         stocksResponseDTOList.sort(Comparator.comparing(StocksResponseDTO::getName));
 
         if (stockList.isEmpty()) {
-            return ApiResponse.onFailure(stocksResponseDTOList, _FAIL);
+            return ApiResponse.onFailure(stocksResponseDTOList, STOCK_LIST_NOT_FOUND);
         } else {
-            return ApiResponse.onSuccess(stocksResponseDTOList, _OK);
+            return ApiResponse.onSuccess(stocksResponseDTOList, STOCK_FOUND);
         }
     }
 
