@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <h1>TickerBoard</h1>
-
+    
     <!-- 검색 + 정렬 -->
     <div class="filter-bar">
       <el-input
@@ -30,7 +29,15 @@
         :key="stock.ticker"
         :xs="24" :sm="12" :md="8" :lg="6"
       >
-        <StockCard :stock="stock" />
+
+        <!-- 카드 -->
+        <router-link
+          :to="{ name: 'StockDetail', params: { ticker: stock.ticker } }"
+          style="text-decoration: none;"
+        >
+          <StockCard :stock="stock" />
+        </router-link>
+
       </el-col>
     </el-row>
 
