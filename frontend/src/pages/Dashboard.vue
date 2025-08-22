@@ -23,14 +23,22 @@
         데이터 불러오는 중...
     </div>
 
-    <!-- 카드 그리드 -->
+    <!-- 카드 그리드 구성 -->
     <el-row :gutter="20" style="margin-top: 20px;">
       <el-col
         v-for="stock in pagedStocks"
         :key="stock.ticker"
         :xs="24" :sm="12" :md="8" :lg="6"
       >
-        <StockCard :stock="stock" />
+
+        <!-- 카드 -->
+        <router-link
+          :to="{ name: 'StockDetail', params: { ticker: stock.ticker } }"
+          style="text-decoration: none;"
+        >
+          <StockCard :stock="stock" />
+        </router-link>
+
       </el-col>
     </el-row>
 

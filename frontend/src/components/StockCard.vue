@@ -1,5 +1,5 @@
 <template>
-    <el-card shadow="hover" class="stock-card">
+    <el-card shadow="hover" class="stock-card" @click="goToDetail">
         <h3>{{ stock.name }}</h3>
         <p>{{ stock.ticker }}</p>
     </el-card>
@@ -13,6 +13,11 @@ export default {
             type: Object,
             required: true,
         }
+    },
+    methods: {
+      goToDetail() {
+        this.$router.push(`/stock/${this.stock.ticker}`)
+      }
     }
 }
 

@@ -1,7 +1,7 @@
 <template>
-  <Dashboard />
+  <router-view />
 </template>
 
 <script setup>
-import Dashboard from '@/pages/Dashboard.vue'
+// 여기서는 별도 import 필요 없음
 </script>
