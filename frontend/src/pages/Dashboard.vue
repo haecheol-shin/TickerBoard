@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <h1>TickerBoard</h1>
-
+    
     <!-- 검색 + 정렬 -->
     <div class="filter-bar">
       <el-input
@@ -23,7 +22,7 @@
         데이터 불러오는 중...
     </div>
 
-    <!-- 카드 그리드 구성 -->
+    <!-- 카드 그리드 -->
     <el-row :gutter="20" style="margin-top: 20px;">
       <el-col
         v-for="stock in pagedStocks"
