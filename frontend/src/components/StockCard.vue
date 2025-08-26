@@ -16,7 +16,7 @@ export default {
     },
     methods: {
       goToDetail() {
-        this.$router.push(`/stock/${this.stock.ticker}`)
+        this.$router.push({ name: 'StockDetail', params: { ticker: stock.ticker } })
       }
     }
 }

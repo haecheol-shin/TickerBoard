@@ -7,7 +7,7 @@
 
     <!-- 페이지 내용 -->
     <main class="app-main">
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </main>
   </div>
 </template>
