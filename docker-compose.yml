@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   spring:
     build:
@@ -5,8 +7,10 @@ services:
     ports:
       - "8080:8080"
     environment:
+      - DB_HOST=${DB_HOST}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
       - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
     depends_on:
       - mysql
@@ -17,7 +21,8 @@ services:
     build:
       context: ./frontend
     ports:
-      - "5173:5173"  # 기본 Vite 포트
+      - "5173:5173"   # dev 서버 사용 시
+      # - "5173:80"   # 프로덕션(Nginx) 사용 시
     networks:
       - ticker-network
 
@@ -28,9 +33,10 @@ services:
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
     ports:
-      - "3306"
+      - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./tickerboard.sql:/docker-entrypoint-initdb.d/tickerboard.sql
     networks:
       - ticker-network
 
