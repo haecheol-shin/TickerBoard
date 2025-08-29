@@ -29,11 +29,10 @@ test {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 	// DB
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -46,6 +45,12 @@ dependencies {
 	implementation 'org.apache.poi:poi-ooxml-schemas:4.1.2'
 	implementation 'org.apache.xmlbeans:xmlbeans:3.1.0'
 	implementation 'com.monitorjbl:xlsx-streamer:2.1.0'
+
+	// caching
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
 }
 

@@ -1,23 +1,28 @@
-version: '3.8'
-
 services:
+
   spring:
+    container_name: spring
     build:
       context: ./backend
     ports:
       - "8080:8080"
     environment:
-      - DB_HOST=${DB_HOST}
+      - DB_HOST=mysql
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
-    depends_on:
-      - mysql
+      - SPRING_DATA_REDIS_HOST=${SPRING_DATA_REDIS_HOST}
+      - SPRING_DATA_REDIS_PORT=${SPRING_DATA_REDIS_PORT}
     networks:
       - ticker-network
+    command: >
+      /wait-for-it.sh mysql:3306 --timeout=30 --strict -- 
+      java -jar build/libs/backend.jar
+
 
   vue:
+    container_name: vue
     build:
       context: ./frontend
     ports:
@@ -27,6 +32,7 @@ services:
       - ticker-network
 
   mysql:
+    container_name: mysql
     image: mysql:8
     restart: always
     environment:
@@ -36,12 +42,24 @@ services:
       - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./tickerboard.sql:/docker-entrypoint-initdb.d/tickerboard.sql
+      - ./mysql-init.sql:/docker-entrypoint-initdb.d/mysql-init.sql
+    networks:
+      - ticker-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: always
     networks:
       - ticker-network
 
 volumes:
   mysql-data:
+  redis-data:
 
 networks:
   ticker-network:
