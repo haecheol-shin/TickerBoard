@@ -3,12 +3,12 @@ package com.example.TickerBoard.web.controller;
 import com.example.TickerBoard.domain.Stock;
 import com.example.TickerBoard.service.StockService;
 import com.example.TickerBoard.web.converter.StockConverter;
+import com.example.TickerBoard.web.dto.StocksResponseWrapper;
 import com.example.TickerBoard.web.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -24,20 +24,12 @@ public class StockController {
 
     @GetMapping("/stocks")
     public ApiResponse<List<StocksResponseDTO>> getAllStocks() {
-        List<Stock> stockList = stockService.getStockList();
+        StocksResponseWrapper wrapper = stockService.getStockList();
+        List<StocksResponseDTO> dtoList = wrapper.getStocks();
 
-        List<StocksResponseDTO> stocksResponseDTOList = new ArrayList<>();
-        for (Stock stock : stockList) {
-            stocksResponseDTOList.add(StockConverter.toStocksResponseDTO(stock));
-        }
-
-        stocksResponseDTOList.sort(Comparator.comparing(StocksResponseDTO::getName));
-
-        if (stockList.isEmpty()) {
-            return ApiResponse.onFailure(stocksResponseDTOList, STOCK_LIST_NOT_FOUND);
-        } else {
-            return ApiResponse.onSuccess(stocksResponseDTOList, STOCK_FOUND);
-        }
+        return dtoList.isEmpty()
+                ? ApiResponse.onFailure(dtoList, STOCK_LIST_NOT_FOUND)
+                : ApiResponse.onSuccess(dtoList, STOCK_FOUND);
     }
 
 }

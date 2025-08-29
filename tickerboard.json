@@ -1,0 +1,33 @@
+{
+	"info": {
+		"_postman_id": "be964789-c3c2-4ac7-bb1e-0984f2db32fe",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31107618"
+	},
+	"item": [
+		{
+			"name": "TickerBoard",
+			"item": [
+				{
+					"name": "종목 리스트 조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/stocks",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"stocks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

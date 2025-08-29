@@ -32,7 +32,7 @@
 
         <!-- 카드 -->
         <router-link
-          :to="{ name: 'StockDetail', params: { ticker: stock.ticker } }"
+          :to="{ name: 'StockDetail', params: { ticker: String(stock.ticker) } }"
           style="text-decoration: none;"
         >
           <StockCard :stock="stock" />
@@ -58,6 +58,8 @@
 <script>
 import { ref, computed, watch, onMounted } from 'vue'
 import StockCard from '@/components/StockCard.vue'
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL
 
 function debounce(fn, delay) {
     let timer;
@@ -110,7 +112,7 @@ export default {
         async fetchStocks() {
             this.loading = true;
             try {
-                const res =  await fetch("http://localhost:8080/stocks")
+                const res =  await fetch(`${API_BASE}/stocks`)
                 const data = await res.json()
                 console.log("API response", data);
                 this.stocks = data.result
